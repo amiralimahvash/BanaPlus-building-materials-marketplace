@@ -166,7 +166,7 @@ node server.js
 - ⚠️ Session state lives in browser `localStorage`, not a signed server session/JWT.
 
 ### Team
-Erfan Hajheidari · Amirali Mahvash · Nima Mehrayin — E-commerce course project, Computer Engineering Dept., instructor: Dr. Nourbakhshiyan.
+Amirali Mahvash · Erfan Hajheidari · Nima Mehrayin — E-commerce course project, Computer Engineering Dept., instructor: Dr. Nourbakhshiyan.
 
 ---
 
@@ -330,4 +330,4 @@ node server.js
 - ⚠️ نشست کاربر در `localStorage` مرورگر نگه‌داری می‌شود، نه یک سشن امن/JWT سمت سرور.
 
 ### تیم
-عرفان حاج‌حیدری · امیرعلی ماهوش · نیما مهرایین — پروژه‌ی درس تجارت الکترونیک، دانشکده مهندسی کامپیوتر، استاد درس: دکتر نوربخشیان.
+امیرعلی ماهوش · عرفان حاج حیدری · نیما مهرایین — پروژه‌ی درس تجارت الکترونیک، دانشکده مهندسی کامپیوتر، استاد درس: دکتر نوربخشیان.
