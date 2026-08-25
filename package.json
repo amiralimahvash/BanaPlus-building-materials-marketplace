@@ -1,0 +1,16 @@
+{
+  "name": "banaplus",
+  "version": "1.0.0",
+  "description": "بازارگاه آنلاین خرید و فروش مصالح ساختمانی — پروژه درس تجارت الکترونیک",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {},
+  "license": "UNLICENSED"
+}

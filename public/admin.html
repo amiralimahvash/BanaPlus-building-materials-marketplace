@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<script>
+  (function(){
+    try{
+      if(localStorage.getItem('sm_theme') === 'light'){
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    }catch(e){}
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل ادمین | بناپلاس</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="/images/favicon.png">
+<style>
+  .admin-wrap{max-width:900px; margin:0 auto; padding:60px 20px;}
+  .login-box{max-width:380px; margin:80px auto;}
+  .order-card{background:var(--concrete-panel); border:1px solid var(--border); padding:22px; margin-bottom:16px;}
+  .order-card .oc-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .oc-actions{display:flex; gap:10px; margin-top:16px;}
+  .filter-row{display:flex; gap:10px; margin-bottom:24px;}
+  .filter-row button{flex:none;}
+  .filter-row button.active{border-color:var(--safety-yellow); color:var(--safety-yellow);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo"><img src="/images/logo-header.png" id="logoImg" alt="بناپلاس" class="logo-img"> پنل ادمین</div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="تغییر پوسته روشن/تیره">🌙</button>
+      <a href="/" class="btn btn-ghost btn-sm">بازگشت به سایت</a>
+    </div>
+  </div>
+</header>
+
+<div class="admin-wrap" id="adminApp">
+  <div class="login-box form-card" id="loginBox">
+    <div class="page-head"><span class="eyebrow">ورود ادمین</span><h1>پنل بررسی پرداخت‌ها</h1></div>
+    <div id="loginMsg"></div>
+    <div class="field"><label>رمز عبور ادمین</label><input class="input" id="adminPassword" type="password" placeholder="رمز عبور"></div>
+    <button class="btn btn-primary btn-block" onclick="adminLogin()">ورود</button>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <div class="page-head"><span class="eyebrow">سفارش‌ها</span><h1>بررسی و تأیید پرداخت‌های کارت‌به‌کارت</h1></div>
+    <div class="filter-row">
+      <button class="btn btn-ghost btn-sm active" data-status="awaiting_confirmation" onclick="setFilter('awaiting_confirmation')">در انتظار تأیید</button>
+      <button class="btn btn-ghost btn-sm" data-status="confirmed" onclick="setFilter('confirmed')">تأییدشده</button>
+      <button class="btn btn-ghost btn-sm" data-status="rejected" onclick="setFilter('rejected')">ردشده</button>
+      <button class="btn btn-ghost btn-sm" data-status="" onclick="setFilter('')">همه</button>
+    </div>
+    <div id="ordersList"></div>
+  </div>
+</div>
+
+<script src="/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<script>
+  (function(){
+    try{
+      if(localStorage.getItem('sm_theme') === 'light'){
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    }catch(e){}
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بناپلاس | بازارگاه مصالح ساختمانی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="/images/favicon.png">
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <button class="hamburger-btn" onclick="openSidebar()" title="منو" aria-label="باز کردن منو">☰</button>
+      <div class="logo" onclick="showPage('home')"><img src="/images/logo-header.png" id="logoImg" alt="بناپلاس" class="logo-img"></div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn active" data-page="home" onclick="showPage('home')">خانه</button>
+      <button class="nav-btn" data-page="browse" data-role="buyer" onclick="showPage('browse')">خرید</button>
+      <button class="nav-btn" data-page="rfq-new" data-role="buyer" onclick="showPage('rfq-new')">درخواست خرید</button>
+      <button class="nav-btn" data-page="stone-guide" data-role="buyer" onclick="showPage('stone-guide')">شبیه‌سازی نما</button>
+      <button class="nav-btn" data-page="browse" data-role="supplier" onclick="showPage('browse')">مشاهده آگهی‌ها</button>
+      <button class="nav-btn" data-page="dashboard" data-role="supplier" onclick="showPage('dashboard')">آگهی‌های من</button>
+      <button class="nav-btn" data-page="rfq-browse" data-role="supplier" onclick="showPage('rfq-browse')">استعلام‌های باز</button>
+      <button class="nav-btn" data-page="supplier-orders" data-role="supplier" onclick="showPage('supplier-orders')">سفارشات مشتریان</button>
+    </div>
+    <div class="nav-right">
+      <button class="nav-btn cart-badge" data-page="cart" data-role="buyer" onclick="showPage('cart')">
+        🛒<span class="cart-label"> سبد خرید</span> <span class="badge-count" id="cartCount">۰</span>
+      </button>
+      <div id="authArea"></div>
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<aside class="sidebar-drawer" id="sidebarDrawer">
+  <div class="sidebar-head">
+    <span>منو</span>
+    <button class="sidebar-close" onclick="closeSidebar()" aria-label="بستن منو">✕</button>
+  </div>
+  <div class="sidebar-links" id="sidebarLinks"></div>
+</aside>
+
+<main>
+
+  <section class="page active" id="page-home">
+    <div class="hero hero-photo">
+      <img src="/images/hero-site.jpg" alt="کارگاه ساختمانی و پیش‌نمایش دیجیتال پروژه" class="hero-img">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>مصالح ساختمانی را <em>شفاف</em> بخرید و بفروشید</h1>
+        <p>سنگ، سیمان، گچ، آهن‌آلات و کاشی — مستقیم از تأمین‌کننده، با قیمت شفاف و پرداخت امن.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" onclick="showPage('browse')">مشاهده آگهی‌ها</button>
+          <button class="btn btn-ghost" onclick="showPage('sell')">ثبت آگهی فروش</button>
+        </div>
+      </div>
+    </div>
+    <div class="page-head"><span class="eyebrow">دسته‌بندی‌ها</span><h2>در چه چیزی به دنبال معامله‌اید؟</h2></div>
+    <div class="cat-grid" id="catGrid"></div>
+
+    <div class="page-head"><span class="eyebrow">امکانات ما</span><h2>چرا بناپلاس؟</h2></div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-ic">🔨</div>
+        <h3>خرید با کمترین قیمت</h3>
+        <p>با برگزاری حراجی، درخواست خرید خود را ثبت کنید و بگذارید چند تأمین‌کننده هم‌زمان برای شما قیمت پیشنهاد بدهند تا کمترین قیمت را بگیرید.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic">🚚</div>
+        <h3>هماهنگی حمل‌ونقل</h3>
+        <p>هماهنگی حمل و نقل کالا با بیمه سلامت.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic">🪄</div>
+        <h3>شبیه‌سازی نما با هوش مصنوعی</h3>
+        <p>قبل از خرید، عکس نمای ساختمان خودتان را بارگذاری کنید و نتیجه‌ی هر سنگ یا کاشی را روی همان عکس، رایگان و در چند ثانیه ببینید.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin:6px 0 50px;">
+      <button class="btn btn-ghost" onclick="showPage('auction-info')">اطلاعات بیشتر</button>
+    </div>
+
+    <div class="page-head"><span class="eyebrow">تازه‌ترین آگهی‌ها</span><h2>آگهی‌های اخیر</h2></div>
+    <div class="prod-grid" id="homeGrid"></div>
+  </section>
+
+  <!-- Explains how the reverse-auction / RFQ system works -->
+  <section class="page" id="page-auction-info">
+    <button class="btn btn-ghost btn-sm" onclick="showPage('home')">← بازگشت به خانه</button>
+    <div style="height:24px"></div>
+    <div class="page-head"><span class="eyebrow">حراجی معکوس</span><h1>حراجی ما چطور کار می‌کند؟</h1><p>به‌جای خرید با قیمت ثابت، درخواست خود را ثبت کنید و بگذارید تأمین‌کنندگان برای گرفتن سفارش شما با هم رقابت کنند — دقیقاً مثل یک حراجی، اما برعکس: هرچه قیمت پایین‌تر، شانس برنده‌شدن تأمین‌کننده بیشتر.</p></div>
+
+    <div class="detail-wrap">
+      <div class="detail-thumb"><img src="/images/hero-site.jpg" alt="نحوه کار حراجی بناپلاس"></div>
+      <div class="detail-info">
+        <div class="detail-row"><span>مرحله ۱ · ثبت درخواست</span><span style="max-width:65%; text-align:left">دسته‌بندی، مقدار موردنیاز، شهر تحویل و توضیحات کالا را در «درخواست خرید» می‌نویسید.</span></div>
+        <div class="detail-row"><span>مرحله ۲ · مزایده کور</span><span style="max-width:65%; text-align:left">همه‌ی تأمین‌کنندگان همان دسته‌بندی، درخواست شما را در «استعلام‌های باز» می‌بینند و قیمت پیشنهادی خود را ثبت می‌کنند. هیچ تأمین‌کننده‌ای پیشنهاد رقبا را نمی‌بیند — فقط پایین‌ترین قیمتِ فعلی را به‌عنوان یک عدد می‌بیند تا بداند باید چه قیمتی بدهد، و می‌تواند قیمت خودش را هر چند بار که خواست پایین‌تر ببرد.</span></div>
+        <div class="detail-row"><span>مرحله ۳ · انتخاب برنده</span><span style="max-width:65%; text-align:left">شما در «درخواست خرید» همه‌ی پیشنهادها را با نام کارخانه/شرکت تأمین‌کننده و قیمت می‌بینید، مرتب‌شده از پایین‌ترین قیمت. تصمیم نهایی با شماست — می‌توانید ارزان‌ترین یا هر پیشنهاد دیگری را که ترجیح می‌دهید انتخاب کنید.</span></div>
+        <div class="detail-row"><span>مرحله ۴ · پرداخت و پیگیری</span><span style="max-width:65%; text-align:left">با انتخاب یک پیشنهاد، آدرس تحویل را وارد می‌کنید، کارمزد پلتفرم شفاف نمایش داده می‌شود و پرداخت کارت‌به‌کارت انجام می‌گیرد. از همان لحظه، سفارش وارد چرخه‌ی آماده‌سازی، بسته‌بندی، ارسال و تحویل می‌شود — دقیقاً مثل خرید مستقیم از آگهی.</span></div>
+      </div>
+    </div>
+
+    <div class="page-head" style="margin-top:44px;"><span class="eyebrow">حریم خصوصی مزایده</span><h2 style="font-size:1.2rem;">چرا این روش منصفانه و امن است؟</h2></div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-ic">🙈</div>
+        <h3>مزایده کاملاً کور</h3>
+        <p>تأمین‌کنندگان هیچ‌وقت نمی‌فهمند پایین‌ترین قیمت رقیب متعلق به کدام شرکت است، فقط عدد آن را می‌بینند تا بتوانند رقابتی قیمت بدهند.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic">🏷️</div>
+        <h3>بدون فشار روی خریدار</h3>
+        <p>هیچ الزامی به انتخاب ارزان‌ترین پیشنهاد ندارید؛ می‌توانید بر اساس اعتبار یا زمان تحویل هم تصمیم بگیرید.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic">🔒</div>
+        <h3>پرداخت امن</h3>
+        <p>مبلغ فقط پس از انتخاب نهایی شما و از طریق کارت‌به‌کارت با شماره پیگیری قابل رهگیری واریز می‌شود.</p>
+      </div>
+    </div>
+
+    <div class="form-card wide" style="margin-top:26px;">
+      <h3 style="margin-bottom:14px; font-size:1rem;">چند سؤال پرتکرار</h3>
+      <div class="detail-row"><span>آیا ثبت درخواست هزینه دارد؟</span><span style="max-width:60%; text-align:left">خیر، ثبت درخواست و دریافت پیشنهاد رایگان است؛ فقط هنگام نهایی‌کردن خرید، کارمزد پلتفرم روی مبلغ کالا اعمال می‌شود.</span></div>
+      <div class="detail-row"><span>چند پیشنهاد معمولاً دریافت می‌کنم؟</span><span style="max-width:60%; text-align:left">به تعداد تأمین‌کنندگان فعال در همان دسته‌بندی و شهر بستگی دارد؛ هر چه درخواست دقیق‌تر باشد، پیشنهادهای بهتری می‌گیرید.</span></div>
+      <div class="detail-row"><span>می‌توانم درخواستم را لغو کنم؟</span><span style="max-width:60%; text-align:left">تا زمانی که پیشنهادی را نهایی نکرده‌اید، درخواست باز می‌ماند و هیچ تعهدی برای شما ایجاد نمی‌شود.</span></div>
+    </div>
+
+    <div class="form-card wide" style="margin-top:26px; text-align:center;">
+      <button class="btn btn-primary btn-block" onclick="showPage('rfq-new')">ثبت درخواست خرید</button>
+    </div>
+
+    <div class="page-head" style="margin-top:60px;"><span class="eyebrow">شبیه‌سازی نما</span><h2 style="font-size:1.2rem;">شبیه‌سازی نما با هوش مصنوعی چیست؟</h2><p>پیش از خرید سنگ یا کاشی، نتیجه‌ی نهایی را روی عکس واقعی ساختمان خودتان ببینید — بدون نیاز به بردن نمونه فیزیکی سر پروژه و بدون حدس‌وگمان.</p></div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-ic">📷</div>
+        <h3>یک عکس، چند گزینه</h3>
+        <p>عکس نما یا اسکلت ساختمان خود را بارگذاری کنید و چند نوع سنگ یا کاشی مختلف را روی همان عکس امتحان کنید.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic">⚡</div>
+        <h3>رایگان و آنی</h3>
+        <p>کل پردازش همین حالا در همان مرورگر شما انجام می‌شود؛ رایگان است و نتیجه را در چند ثانیه می‌بینید.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ic">✅</div>
+        <h3>تصمیم مطمئن‌تر</h3>
+        <p>پیش از ثبت سفارش نهایی، رنگ و بافت سنگ را روی نمای واقعی ساختمان‌تان ارزیابی کنید و با خیال راحت انتخاب کنید.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin:26px 0 10px;">
+      <button class="btn btn-primary" onclick="showPage('stone-guide')">امتحان شبیه‌سازی نما</button>
+    </div>
+  </section>
+
+  <section class="page" id="page-browse">
+    <div class="page-head"><span class="eyebrow">خرید</span><h1>همه آگهی‌ها</h1><p>جستجو کنید یا بر اساس دسته فیلتر کنید.</p></div>
+    <div class="toolbar">
+      <input class="input" id="searchInput" placeholder="جستجو (مثلاً: سنگ الشتر، سیمان تیپ ۲...)" oninput="renderBrowse()">
+      <select id="catFilter" onchange="renderBrowse()"><option value="">همه دسته‌ها</option></select>
+    </div>
+    <div class="prod-grid" id="browseGrid"></div>
+  </section>
+
+  <section class="page" id="page-product">
+    <button class="btn btn-ghost btn-sm" onclick="showPage('browse')">← بازگشت به آگهی‌ها</button>
+    <div style="height:24px"></div>
+    <div class="detail-wrap" id="productDetail"></div>
+  </section>
+
+  <!-- BUYER: all requests, with a button to create a new one -->
+  <section class="page" id="page-rfq-new">
+    <div class="page-head"><span class="eyebrow">استعلام قیمت</span><h1>درخواست خرید</h1><p>همه‌ی درخواست‌های خرید شما و پیشنهادهایی که از تأمین‌کنندگان دریافت کرده‌اید، اینجاست.</p>
+      <button class="btn btn-primary" id="newRfqToggleBtn" style="margin-top:18px" onclick="toggleNewRfqForm()">+ ثبت درخواست جدید</button>
+    </div>
+    <div class="form-card wide" id="rfqFormCard" style="display:none; margin-bottom:40px;">
+      <div id="rfqMsg"></div>
+      <div class="field-row">
+        <div class="field"><label>عنوان درخواست</label><input class="input" id="rfqTitle" placeholder="مثلاً: نیاز به ۵۰ تن سیمان تیپ ۲"></div>
+        <div class="field"><label>دسته‌بندی</label>
+          <select id="rfqCat" style="width:100%" onchange="updateRequestTitlePlaceholder()"></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>مقدار موردنیاز</label><input class="input" id="rfqQty" type="number" placeholder="مثلاً ۵۰"></div>
+        <div class="field"><label>واحد</label><input class="input" id="rfqUnit" placeholder="تن / متر مربع / عدد"></div>
+      </div>
+      <div class="field"><label>شهر تحویل</label><input class="input" id="rfqCity" placeholder="مثلاً اصفهان"></div>
+      <div class="field"><label>توضیحات و مشخصات دقیق</label><textarea class="input" id="rfqDesc" placeholder="سورت، ضخامت، برند موردنظر، زمان تحویل و ..."></textarea></div>
+      <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="submitRequest()">ارسال درخواست به تأمین‌کنندگان</button>
+    </div>
+    <div class="page-head"><h2 style="font-size:1.05rem;">همه درخواست‌های من</h2></div>
+    <div id="rfqListArea"></div>
+  </section>
+
+  <!-- BUYER: request detail + offers received -->
+  <section class="page" id="page-rfq-detail">
+    <button class="btn btn-ghost btn-sm" onclick="showPage('rfq-new')">← بازگشت به درخواست خرید</button>
+    <div style="height:24px"></div>
+    <div id="rfqDetailArea"></div>
+  </section>
+
+  <!-- BUYER: AI facade mockup — apply stone to an uploaded building photo -->
+  <!-- BUYER: stone selection guide, 30 stones grouped by use-case -->
+  <section class="page" id="page-stone-guide">
+    <div class="page-head"><span class="eyebrow">راهنمای انتخاب سنگ</span><h1>۳۰ نوع سنگ ساختمانی و محل استفاده هرکدام</h1><p>راهنمای انتخاب بهترین سنگ برای نما، کف، پله، آشپزخانه و سرویس بهداشتی.</p></div>
+    <div id="stoneGuideArea"></div>
+    <div class="form-card wide" style="text-align:center; margin-top:30px;">
+      <p style="margin-bottom:16px; color:var(--text-muted);">هر کدام از این سنگ‌ها را پسندیدید، می‌توانید همین حالا روی نمای ساختمان خودتان ببینید.</p>
+      <button class="btn btn-primary" onclick="showPage('ai-mockup')">شبیه‌سازی با هوش مصنوعی</button>
+    </div>
+  </section>
+
+  <section class="page" id="page-ai-mockup">
+    <button class="btn btn-ghost btn-sm" onclick="showPage('stone-guide')">← بازگشت به راهنمای سنگ‌ها</button>
+    <div style="height:24px"></div>
+    <div class="page-head"><span class="eyebrow">شبیه‌سازی نما · رایگان</span><h1>سنگ را روی نمای ساختمان خود ببینید</h1><p>عکس نما یا اسکلت ساختمان خود را بارگذاری کنید، نوع سنگ را انتخاب کنید و پیش‌نمایش رنگ و بافت را فوری و رایگان ببینید (پردازش کاملاً در همین مرورگر انجام می‌شود، بدون نیاز به سرویس هوش مصنوعی پولی).</p></div>
+    <div id="mockupMsg"></div>
+    <div class="form-card wide" id="mockupFormBody">
+      <div class="field">
+        <label>عکس نمای ساختمان</label>
+        <input class="input" id="mockupImageInput" type="file" accept="image/*" onchange="handleMockupImageSelect(event)">
+      </div>
+      <div class="field">
+        <label>نوع سنگ / متریال</label>
+        <select class="input" id="mockupMaterial" style="width:100%"></select>
+      </div>
+      <button class="btn btn-primary btn-block" id="mockupGenerateBtn" onclick="generateMockup()" disabled>ابتدا یک عکس انتخاب کنید</button>
+
+      <div class="mockup-compare" id="mockupCompare" style="display:none;">
+        <div class="mockup-pane">
+          <span class="eyebrow">قبل</span>
+          <img id="mockupBeforeImg" alt="قبل">
+        </div>
+        <div class="mockup-pane">
+          <span class="eyebrow">بعد (تولیدشده با هوش مصنوعی)</span>
+          <div id="mockupAfterWrap" class="mockup-after-wrap">
+            <div class="loading">نتیجه پس از کلیک روی «تولید شبیه‌سازی» اینجا نمایش داده می‌شود.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPLIER: browse open requests and bid -->
+  <section class="page" id="page-rfq-browse">
+    <div class="page-head"><span class="eyebrow">استعلام قیمت</span><h1>استعلام‌های باز</h1><p>روی هر درخواست، قیمت پیشنهادی خود را ثبت کنید. تا زمانی که خریدار پیشنهادی را نهایی نکرده، می‌توانید قیمت خود را پایین‌تر ببرید. پیشنهاد شما برای سایر تأمین‌کنندگان نمایش داده نمی‌شود.</p></div>
+    <div class="toolbar">
+      <select id="rfqCatFilter" onchange="renderRfqBrowse()"><option value="">همه دسته‌ها</option></select>
+    </div>
+    <div id="rfqBrowseArea"></div>
+  </section>
+
+  <section class="page" id="page-sell">
+    <button class="btn btn-ghost btn-sm" data-role="supplier" onclick="showPage('dashboard')">← بازگشت به آگهی‌های من</button>
+    <div style="height:24px"></div>
+    <div class="page-head"><span class="eyebrow">فروش</span><h1>ثبت آگهی جدید</h1><p>برای ثبت آگهی، ابتدا باید وارد حساب کاربری خود شوید.</p></div>
+    <div id="sellGate"></div>
+  </section>
+
+  <section class="page" id="page-auth">
+    <div class="page-head"><span class="eyebrow">حساب کاربری</span><h1>ورود یا ثبت‌نام</h1></div>
+    <div class="form-card">
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="tabLogin" onclick="setAuthTab('login')">ورود</div>
+        <div class="auth-tab" id="tabRegister" onclick="setAuthTab('register')">ثبت‌نام</div>
+      </div>
+      <div id="authMsg"></div>
+      <div id="loginForm">
+        <div class="field" id="loginPhoneField">
+          <label>شماره موبایل</label>
+          <input class="input" id="loginPhone" placeholder="09xxxxxxxxx" maxlength="11">
+        </div>
+        <button class="btn btn-primary btn-block" id="loginSendBtn" onclick="sendLoginOtp()">ارسال کد تایید</button>
+        <div class="field" id="loginOtpField" style="display:none;">
+          <label>کد تایید ارسال‌شده به موبایل</label>
+          <input class="input" id="loginOtp" placeholder="کد تایید" maxlength="6" inputmode="numeric">
+        </div>
+        <button class="btn btn-primary btn-block" id="loginVerifyBtn" style="display:none;" onclick="doLogin()">ورود</button>
+        <button class="btn btn-ghost btn-sm btn-block" id="loginResendBtn" style="display:none;" onclick="sendLoginOtp(true)">ارسال مجدد کد</button>
+      </div>
+      <div id="registerForm" style="display:none;">
+        <div class="field"><label>نام و نام خانوادگی</label><input class="input" id="regName"></div>
+        <div class="field" id="regPhoneField">
+          <label>شماره موبایل</label>
+          <input class="input" id="regPhone" placeholder="09xxxxxxxxx" maxlength="11">
+        </div>
+        <div class="field"><label>شهر</label><input class="input" id="regCity"></div>
+        <div class="field"><label>نوع فعالیت</label>
+          <select id="regRole" style="width:100%" onchange="toggleCompanyField()">
+            <option value="buyer">خریدار (پیمانکار / سازنده)</option>
+            <option value="supplier">تأمین‌کننده (کارخانه / بنکدار)</option>
+          </select>
+        </div>
+        <div class="field" id="companyField" style="display:none;">
+          <label>نام کارخانه / شرکت</label>
+          <input class="input" id="regCompany">
+        </div>
+        <button class="btn btn-primary btn-block" id="regSendBtn" onclick="sendRegisterOtp()">ارسال کد تایید</button>
+        <div class="field" id="regOtpField" style="display:none;">
+          <label>کد تایید ارسال‌شده به موبایل</label>
+          <input class="input" id="regOtp" placeholder="کد تایید" maxlength="6" inputmode="numeric">
+        </div>
+        <button class="btn btn-primary btn-block" id="regSubmitBtn" style="display:none;" onclick="doRegister()">ساخت حساب</button>
+        <button class="btn btn-ghost btn-sm btn-block" id="regResendBtn" style="display:none;" onclick="sendRegisterOtp(true)">ارسال مجدد کد</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Account panel: profile info + logout only -->
+  <section class="page" id="page-account">
+    <div class="page-head"><span class="eyebrow">حساب کاربری</span><h1>اطلاعات حساب من</h1></div>
+    <div id="accountArea"></div>
+  </section>
+
+  <!-- BUYER: standalone addresses page -->
+  <section class="page" id="page-addresses">
+    <div class="page-head"><span class="eyebrow">حساب کاربری</span><h1>آدرس‌های من</h1><p>این آدرس‌ها را هنگام ثبت سفارش می‌توانید انتخاب کنید یا یک آدرس جدید وارد کنید.</p>
+      <button class="btn btn-primary" id="newAddrToggleBtn" style="margin-top:18px" onclick="toggleNewAddressForm()">+ ثبت آدرس جدید</button>
+    </div>
+    <div class="form-card wide" id="addrFormCard" style="display:none; margin-bottom:40px;">
+      <h3 id="addrFormTitle" style="margin-bottom:16px; font-size:1rem;">ثبت آدرس جدید</h3>
+      <div id="addressMsg"></div>
+      <div class="field-row">
+        <div class="field"><label>برچسب آدرس</label><input class="input" id="newAddrLabel" placeholder="مثلاً خانه، محل کار، کارگاه"></div>
+      </div>
+      <div class="field"><label>آدرس کامل</label><textarea class="input" id="newAddrText" placeholder="استان، شهر، خیابان، پلاک، کد پستی و توضیحات دسترسی"></textarea></div>
+      <button class="btn btn-primary" id="addrFormSubmitBtn" onclick="saveAddress()">افزودن آدرس</button>
+    </div>
+    <div class="page-head"><h2 style="font-size:1.05rem;">همه آدرس‌های من</h2></div>
+    <div id="addressListArea"></div>
+  </section>
+
+  <section class="page" id="page-cart">
+    <div class="page-head"><span class="eyebrow">سبد خرید</span><h1>سبد خرید شما</h1></div>
+    <div id="cartItems"></div>
+    <div class="cart-summary" id="cartSummary" style="display:none;">
+      <div class="cart-total"><span>جمع کل (بدون کارمزد)</span><span id="cartTotal">۰ تومان</span></div>
+      <div class="escrow-note">🔒 در مرحله بعد، آدرس تحویل و کارمزد پلتفرم نمایش داده می‌شود؛ سپس پرداخت کارت‌به‌کارت انجام می‌شود.</div>
+      <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="goToPayment()">ادامه به بررسی سفارش</button>
+    </div>
+  </section>
+
+  <!-- Address + commission breakdown, shown before the card number -->
+  <section class="page" id="page-checkout-review">
+    <button class="btn btn-ghost btn-sm" onclick="showPage('cart')">← بازگشت به سبد خرید</button>
+    <div style="height:24px"></div>
+    <div class="page-head"><span class="eyebrow">بررسی سفارش</span><h1>آدرس تحویل و کارمزد پلتفرم</h1><p>قبل از دیدن شماره کارت، آدرس دقیق تحویل بار را وارد کنید و کارمزد پلتفرم را برای هر قلم ببینید.</p></div>
+    <div id="checkoutReviewArea"></div>
+  </section>
+
+  <section class="page" id="page-payment">
+    <button class="btn btn-ghost btn-sm" onclick="showPage('checkout-review')">← بازگشت به بررسی سفارش</button>
+    <div style="height:24px"></div>
+    <div class="page-head"><span class="eyebrow">پرداخت کارت‌به‌کارت</span><h1>مبلغ را کارت‌به‌کارت واریز کنید</h1><p>پس از واریز، شماره پیگیری تراکنش (رسید بانکی) را در فیلد زیر وارد کنید تا سفارش شما توسط ادمین بررسی و تأیید شود.</p></div>
+    <div class="form-card wide">
+      <div id="paymentMsg"></div>
+      <div class="card-display" id="cardDisplay">در حال بارگذاری اطلاعات کارت...</div>
+      <div class="cart-total" style="margin-top:20px;"><span>مبلغ قابل پرداخت (شامل کارمزد)</span><span id="paymentTotal">۰ تومان</span></div>
+      <div class="field" style="margin-top:20px;">
+        <label>شماره پیگیری / کد رهگیری تراکنش بانکی</label>
+        <input class="input" id="trackingCodeInput" placeholder="مثلاً 123456789012">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="submitPayment()">ثبت شماره پیگیری و ارسال برای بررسی</button>
+      <div class="escrow-note" style="margin-top:16px;">⏳ سفارش شما پس از تأیید ادمین نهایی می‌شود. وضعیت را از «سفارش‌های من» پیگیری کنید.</div>
+    </div>
+  </section>
+
+  <!-- SUPPLIER: manage fulfillment of confirmed orders -->
+  <section class="page" id="page-supplier-orders">
+    <div class="page-head"><span class="eyebrow">تأمین‌کننده</span><h1>سفارشات مشتریان</h1><p>سفارش‌هایی که ادمین پرداختشان را تأیید کرده؛ وضعیت آماده‌سازی و ارسال را از اینجا به‌روزرسانی کنید.</p></div>
+    <div id="supplierOrdersArea"></div>
+  </section>
+
+  <section class="page" id="page-dashboard">
+    <div class="page-head"><span class="eyebrow">تأمین‌کننده</span><h1>آگهی‌های من</h1>
+      <button class="btn btn-primary" style="margin-top:18px" onclick="showPage('sell')">+ ثبت آگهی جدید</button>
+    </div>
+    <div id="dashboardArea"></div>
+  </section>
+
+  <section class="page" id="page-orders">
+    <div class="page-head"><span class="eyebrow">خریدار</span><h1>سفارش‌های من</h1></div>
+    <div id="ordersArea"></div>
+  </section>
+
+</main>
+
+<footer>
+  <p>پروژه درس تجارت الکترونیک · دانشکده مهندسی کامپیوتر</p>
+  <p>استاد درس: استاد نوربهبهانی</p>
+  <p class="team">عرفان حاج‌حیدری · امیرعلی ماهوش · نیما مهرایین</p>
+  <p style="margin-top:14px;"><a href="/admin.html" style="color:rgba(var(--text-rgb),0.35); font-size:.75rem;">پنل ادمین</a></p>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>
